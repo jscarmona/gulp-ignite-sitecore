@@ -154,7 +154,7 @@ gulp sitecore:transforms
 ```
 
 ##### arguments
-- `--src, -s` - Publish all `.csproj` files located within directory.
+- `--src, -s` - Publish all `.transforms` files located within directory.
 - `--dest, -d` - Destination directory for deployment.
 
 ##### options
@@ -179,9 +179,9 @@ gulp sitecore:package-website
 - `--dest, -d` - Destination directory for compiled zip.
 
 ##### options
+- `src` - Directory to package up. (**Required**)
+- `dest` - Destination directory for compiled zip. (**Required**)
 - `name` - Name for zip file (**Default:** `sitecore_website`)
-- `src` - Directory to package up. (**Default:** `C:\sc_temp\Website`)
-- `dest` - Destination directory for compiled zip. (**Default:** `C:\sc_temp`)
 - `deps` - Any gulp tasks that task would be dependent of. (**Default:** `[]`)
 
 ---
@@ -198,10 +198,9 @@ gulp sitecore:deploy
 - `--watch, -w` - Watch files for changes and auto deploys.
 
 ##### options
-- `src` - Directory to package up. (**Required**)
-- `dest` - Destination directory for compiled zip. (**Required**)
-- `name` - Name for zip file (**Default:** `sitecore_website`)
-- `deps` - Any gulp tasks that task would be dependent of. (**Default:** `[]`)
+- `dest` - Destination directory for deployment. (**Required**)
+- `src` - Files to deploy. (**Default:** `[]`)
+- `watchFiles` - Files to watch (**Default:** `[]`)
 
 
 ## license
