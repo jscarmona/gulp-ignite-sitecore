@@ -1,3 +1,4 @@
+import gulp from 'gulp';
 import yargs from 'yargs';
 
 export default {
@@ -18,7 +19,7 @@ export default {
    * @type {Object}
    */
   config: {
-    dest: './src',
+    dest: './lib/Sitecore',
     deps: [],
   },
 
@@ -38,13 +39,23 @@ export default {
    * @param {Function} error
    */
   fn(config, end, error) {
-    if (!config) {
-      error();
+    const src = yargs.argv.src || yargs.argv.s || config.src;
+    const dest = yargs.argv.dest || yargs.argv.d || config.dest;
+
+    if (!src) {
+      error({ message: 'Error: There is no `src` provided.' });
+
+      return;
     }
 
-    /* eslint no-unused-vars: 0 */
-    const sample = yargs.argv.sample || config.sample;
+    if (!dest) {
+      error({ message: 'Error: There is no `dest` provided.' });
 
-    end();
+      return;
+    }
+
+    gulp.src(`${src}/**/*`)
+      .pipe(gulp.dest(dest))
+      .on('end', end);
   },
 };
