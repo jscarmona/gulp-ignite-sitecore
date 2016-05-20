@@ -1,7 +1,7 @@
 {
-  "name": "gulp-ignite-task-boilerplate",
-  "description": "A boilerplate for building gulp ignite tasks.",
-  "version": "0.0.0-semantically-released",
+  "name": "gulp-ignite-sitecore",
+  "description": "A build and deployment set of gulp tasks to ease through the development of Sitecore projects.",
+  "version": "0.0.1",
   "main": "index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register",
@@ -12,19 +12,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jscarmona/gulp-ignite-task-boilerplate.git"
+    "url": "git+https://github.com/jscarmona/gulp-ignite-sitecore.git"
   },
   "keywords": [
     "gulp",
     "starter",
-    "tasks"
+    "tasks",
+    "sitecore"
   ],
   "author": "Javier Carmona",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jscarmona/gulp-ignite-task-boilerplate/issues"
+    "url": "https://github.com/jscarmona/gulp-ignite-sitecore/issues"
   },
-  "homepage": "https://github.com/jscarmona/gulp-ignite-task-boilerplate#readme",
+  "homepage": "https://github.com/jscarmona/gulp-ignite-sitecore#readme",
   "dependencies": {
     "gulp": "^3.9.0",
     "yargs": "^3.32.0"
