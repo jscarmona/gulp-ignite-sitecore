@@ -11,20 +11,25 @@ export default {
    * Task description
    * @type {String}
    */
-  description: 'Task description',
+  description: 'Zip up the website for deployment.',
 
   /**
    * Task default configuration
    * @type {Object}
    */
-  config: {},
+  config: {
+    name: 'sitecore_website',
+    deps: [],
+  },
 
   /**
    * Task help options
    * @type {Object}
    */
   help: {
-    sample: 'Description of option (true|false). Default: false',
+    'name, -n': 'Name for zip file',
+    'src, -s': 'Directory to package',
+    'dest, -d': 'Destination directory for compiled zip',
   },
 
   /**

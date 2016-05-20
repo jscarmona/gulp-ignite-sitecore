@@ -11,20 +11,22 @@ export default {
    * Task description
    * @type {String}
    */
-  description: 'Task description',
+  description: 'Restore all nuget packages for solution.',
 
   /**
    * Task default configuration
    * @type {Object}
    */
-  config: {},
+  config: {
+    deps: [],
+  },
 
   /**
    * Task help options
    * @type {Object}
    */
   help: {
-    sample: 'Description of option (true|false). Default: false',
+    'name, -n': 'Solution name',
   },
 
   /**

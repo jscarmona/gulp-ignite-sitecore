@@ -11,20 +11,28 @@ export default {
    * Task description
    * @type {String}
    */
-  description: 'Task description',
+  description: 'Publish all TDS projects.',
 
   /**
    * Task default configuration
    * @type {Object}
    */
-  config: {},
+  config: {
+    config: 'Debug',
+    src: './src',
+    options: {},
+    deps: [],
+  },
 
   /**
    * Task help options
    * @type {Object}
    */
   help: {
-    sample: 'Description of option (true|false). Default: false',
+    'config, -c': 'Build Configuration',
+    'dest, -d': 'Destination directory for deployment',
+    'src, -s': 'Publish all `.scproj `files located within directory',
+    'url, -u': 'Destination sitecore url for deployment',
   },
 
   /**

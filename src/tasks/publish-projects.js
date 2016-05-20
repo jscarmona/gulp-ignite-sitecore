@@ -11,20 +11,27 @@ export default {
    * Task description
    * @type {String}
    */
-  description: 'Task description',
+  description: 'Build and publish all projects.',
 
   /**
    * Task default configuration
    * @type {Object}
    */
-  config: {},
+  config: {
+    config: 'Debug',
+    src: './src',
+    options: {},
+    deps: [],
+  },
 
   /**
    * Task help options
    * @type {Object}
    */
   help: {
-    sample: 'Description of option (true|false). Default: false',
+    'config, -c': 'Build configuration',
+    'src, -s': 'Publish all `.csproj` files located within directory',
+    'dest, -d': 'Destination directory for deployment',
   },
 
   /**

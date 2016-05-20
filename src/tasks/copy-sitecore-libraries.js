@@ -11,20 +11,24 @@ export default {
    * Task description
    * @type {String}
    */
-  description: 'Task description',
+  description: 'Copy the sitecore libaries from the website to lib directory.',
 
   /**
    * Task default configuration
    * @type {Object}
    */
-  config: {},
+  config: {
+    dest: './src',
+    deps: [],
+  },
 
   /**
    * Task help options
    * @type {Object}
    */
   help: {
-    sample: 'Description of option (true|false). Default: false',
+    'src, -s': 'Source directory for sitecore libraries',
+    'dest, -d': 'Destination directory',
   },
 
   /**

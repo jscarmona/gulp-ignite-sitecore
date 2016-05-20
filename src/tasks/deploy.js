@@ -11,20 +11,25 @@ export default {
    * Task description
    * @type {String}
    */
-  description: 'Task description',
+  description: 'Deploy files to Sitecore website',
 
   /**
    * Task default configuration
    * @type {Object}
    */
-  config: {},
+  config: {
+    deps: [],
+    name: 'sitecore_package',
+    src: [],
+    watchFiles: [],
+  },
 
   /**
    * Task help options
    * @type {Object}
    */
   help: {
-    sample: 'Description of option (true|false). Default: false',
+    'watch, -w': 'Watch files for changes and auto deploys',
   },
 
   /**

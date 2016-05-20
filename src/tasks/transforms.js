@@ -11,20 +11,25 @@ export default {
    * Task description
    * @type {String}
    */
-  description: 'Task description',
+  description: 'Apply transforms and publish to project.',
 
   /**
    * Task default configuration
    * @type {Object}
    */
-  config: {},
+  config: {
+    src: './src',
+    options: {},
+    deps: [],
+  },
 
   /**
    * Task help options
    * @type {Object}
    */
   help: {
-    sample: 'Description of option (true|false). Default: false',
+    'src, -s': 'Publish all `.transforms` files located within directory',
+    'dest, -d': 'Destination directory for deployment',
   },
 
   /**
