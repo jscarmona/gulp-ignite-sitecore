@@ -1,4 +1,9 @@
+import gulp from 'gulp';
+import path from 'path';
 import yargs from 'yargs';
+import es from 'event-stream';
+import newer from 'gulp-newer';
+import { IGNITE_UTILS } from 'gulp-ignite/utils';
 
 export default {
   /**
@@ -18,8 +23,8 @@ export default {
    * @type {Object}
    */
   config: {
+    basePath: './src',
     deps: [],
-    name: 'sitecore_package',
     src: [],
     watchFiles: [],
   },
@@ -39,13 +44,65 @@ export default {
    * @param {Function} error
    */
   fn(config, end, error) {
-    if (!config) {
-      error();
+    const src = yargs.argv.src || yargs.argv.s || config.src;
+    const dest = yargs.argv.dest || yargs.argv.d || config.dest;
+
+    if (!src) {
+      error({ message: 'Error: There is no `src` provided.' });
+
+      return;
     }
 
-    /* eslint no-unused-vars: 0 */
-    const sample = yargs.argv.sample || config.sample;
+    if (!dest) {
+      error({ message: 'Error: There is no `dest` provided.' });
 
-    end();
+      return;
+    }
+
+    gulp.src(src)
+      .pipe(es.map((file, callback) => copy(file.path, config.basePath, dest, false, callback)))
+        .on('end', () => {
+          end();
+
+          if (yargs.argv.watch || yargs.argv.w) {
+            gulp.watch(config.watchFiles, (file) => copy(file.path, config.basePath, dest, true));
+            config.watchFiles.forEach((file) => IGNITE_UTILS.log(`Watching ${file}`, 'yellow'));
+          }
+        });
   },
 };
+
+function copy(source, basePath, dest, notify, callback) {
+  let base;
+
+  if (basePath instanceof RegExp) {
+    const match = source.match(basePath);
+
+    if (!match) {
+      IGNITE_UTILS.log(`There was no base path for ${source}`, 'red');
+      return;
+    }
+
+    base = match[0];
+  } else {
+    base = path.resolve(basePath);
+  }
+
+  gulp.src(source, { base })
+    .pipe(newer(dest))
+    .pipe(gulp.dest(dest))
+      .on('end', () => {
+        const s = path.basename(source);
+        const d = path.join(dest, source.replace(base, ''));
+
+        IGNITE_UTILS.log(`Copied ${s} => ${d}`);
+
+        if (notify) {
+          IGNITE_UTILS.notify(`Successfully copied ${s}`);
+        }
+
+        if (typeof callback === 'function') {
+          callback();
+        }
+      });
+}

@@ -27,8 +27,11 @@
   },
   "homepage": "https://github.com/jscarmona/gulp-ignite-sitecore#readme",
   "dependencies": {
-    "gulp": "^3.9.0",
-    "yargs": "^3.32.0"
+    "event-stream": "3.3.2",
+    "gulp": "3.9.1",
+    "gulp-ignite": "1.1.2",
+    "gulp-newer": "1.1.0",
+    "yargs": "4.2.0"
   },
   "devDependencies": {
     "babel-cli": "6.6.4",
