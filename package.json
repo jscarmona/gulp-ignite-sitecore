@@ -7,7 +7,7 @@
     "test": "mocha --compilers js:babel-core/register",
     "watch": "mocha --compilers js:babel-core/register -w",
     "build": "babel src -d ./",
-    "prepublish": "npm test; npm run build;",
+    "prepublish": "npm test && npm run build",
     "commit": "git-cz"
   },
   "repository": {
