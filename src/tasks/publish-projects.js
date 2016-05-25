@@ -1,4 +1,9 @@
+import gulp from 'gulp';
+import es from 'event-stream';
+import path from 'path';
+import msbuild from 'gulp-msbuild';
 import yargs from 'yargs';
+import { IGNITE_UTILS } from 'gulp-ignite/utils';
 
 export default {
   /**
@@ -19,8 +24,24 @@ export default {
    */
   config: {
     config: 'Debug',
-    src: './src',
-    options: {},
+    src: ['./src/**/*.csproj'],
+    options: {
+      targets: ['Build'],
+      configuration: 'Debug',
+      logCommand: false,
+      verbosity: 'minimal',
+      maxcpucount: 0,
+      toolsVersion: 12.0,
+      stdout: false,
+      stderr: true,
+      properties: {
+        DeployOnBuild: true,
+        DeployDefaultTarget: 'WebPublish',
+        WebPublishMethod: 'FileSystem',
+        DeleteExistingFiles: false,
+        _FindDependencies: false,
+      },
+    },
     deps: [],
   },
 
@@ -32,6 +53,7 @@ export default {
     'config, -c': 'Build configuration',
     'src, -s': 'Publish all `.csproj` files located within directory',
     'dest, -d': 'Destination directory for deployment',
+    'clean, -c': 'Clean before build',
   },
 
   /**
@@ -41,13 +63,35 @@ export default {
    * @param {Function} error
    */
   fn(config, end, error) {
-    if (!config) {
-      error();
+    const src = yargs.argv.src || yargs.argv.s || config.src;
+    const dest = yargs.argv.dest || yargs.argv.d || config.dest;
+    const options = config.options;
+
+    if (!dest) {
+      error({ message: 'Error: There is no `dest` provided.' });
+
+      return;
     }
 
-    /* eslint no-unused-vars: 0 */
-    const sample = yargs.argv.sample || config.sample;
+    options.properties.publishUrl = dest;
+    options.configuration = yargs.argv.config || options.configuration;
 
-    end();
+    if ((yargs.argv.clean || yargs.argv.c) && options.targets.indexOf('Clean') === -1) {
+      options.targets = ['Clean', ...options.targets];
+    }
+
+    gulp.src(src)
+      .pipe(es.through(build))
+      .on('end', end);
+
+    function build(file) {
+      IGNITE_UTILS.log(`${path.basename(file.path, path.extname(file.path))}`);
+
+      this.pause();
+
+      gulp.src(file.path)
+        .pipe(msbuild(options))
+          .on('end', () => { this.resume(); });
+    }
   },
 };

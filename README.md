@@ -111,6 +111,7 @@ gulp sitecore:publish-projects
 - `--config, -c` - Build configuration.
 - `--src, -s` - Publish all `.csproj` files located within directory.
 - `--dest, -d` - Destination directory for deployment.
+- `--clean, -c` - Perform a clean before a build.
 
 ##### options
 - `dest` - Destination directory for deployment. (**Required**)
