@@ -6,7 +6,7 @@ import publishProjects from './tasks/publish-projects';
 import publishTDS from './tasks/publish-tds';
 import transforms from './tasks/transforms';
 
-export {
+export default {
   copySitecoreLibraries,
   deploy,
   nugetRestore,
