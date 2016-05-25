@@ -27,7 +27,7 @@ export default {
    * @type {Object}
    */
   help: {
-    'solution, -s': 'Solution filepath',
+    'solution, -s': 'Solution file path',
   },
 
   /**
@@ -36,7 +36,13 @@ export default {
    * @param {Function} end
    * @param {Function} error
    */
-  fn(config, end) {
+  fn(config, end, error) {
+    if (!config.solution) {
+      error('A solution file path was not set.');
+
+      return;
+    }
+
     gulp.src(config.solution)
       .pipe(nugetRestore())
       .on('end', end);
