@@ -18,7 +18,7 @@ npm i -D gulp-ignite gulp-ignite-sitecore
 import ignite from 'gulp-ignite';
 import * as sitecore from 'gulp-ignite-sitecore';
 
-const tasks = [...Object.keys(sitecore).map(k => sitecore[k])];
+const tasks = Object.keys(sitecore).map(k => sitecore[k])];
 const options = {
   'sitecore:copy-sitecore-libraries': {
     src: 'C:\\Websites\\Sitecore\\Website',
@@ -27,13 +27,17 @@ const options = {
     solutionName: 'sitecore',
   },
   'sitecore:publish-projects': {
-    config: 'Debug',
+    configuration: 'Debug',
     dest: 'C:\\Websites\\Sitecore\\Website',
   },
   'sitecore:publish-tds': {
-    config: 'Debug',
-    dest: 'C:\\Websites\\Sitecore\\Website',
-    url: 'http://sitecore',
+    configuration: 'Debug',
+    options: {
+      properties: {
+        SitecoreDeployFolder : 'C:\\Websites\\Sitecore\\Website',
+        SitecoreWebUrl : 'http://sitecore',
+      },
+    },
   },
   'sitecore:transforms': {
     dest: 'C:\\Websites\\Sitecore\\Website',
