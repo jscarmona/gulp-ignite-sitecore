@@ -1,4 +1,5 @@
-import yargs from 'yargs';
+import gulp from 'gulp';
+import nugetRestore from 'gulp-nuget-restore';
 
 export default {
   /**
@@ -26,7 +27,7 @@ export default {
    * @type {Object}
    */
   help: {
-    'name, -n': 'Solution name',
+    'solution, -s': 'Solution filepath',
   },
 
   /**
@@ -35,14 +36,9 @@ export default {
    * @param {Function} end
    * @param {Function} error
    */
-  fn(config, end, error) {
-    if (!config) {
-      error();
-    }
-
-    /* eslint no-unused-vars: 0 */
-    const sample = yargs.argv.sample || config.sample;
-
-    end();
+  fn(config, end) {
+    gulp.src(config.solution)
+      .pipe(nugetRestore())
+      .on('end', end);
   },
 };
