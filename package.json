@@ -30,7 +30,9 @@
     "event-stream": "3.3.2",
     "gulp": "3.9.1",
     "gulp-ignite": "1.1.2",
+    "gulp-msbuild": "^0.3.2",
     "gulp-newer": "1.1.0",
+    "gulp-nuget-restore": "^0.4.0",
     "yargs": "4.2.0"
   },
   "devDependencies": {
@@ -44,8 +46,6 @@
     "eslint-config-airbnb-base": "3.0.1",
     "eslint-plugin-import": "1.8.0",
     "ghooks": "1.0.3",
-    "gulp-msbuild": "^0.3.2",
-    "gulp-nuget-restore": "^0.4.0",
     "mocha": "2.4.5"
   },
   "config": {
