@@ -50,7 +50,7 @@ export default {
    * @type {Object}
    */
   help: {
-    'config, -c': 'Build configuration',
+    'build, -b': 'Build configuration',
     'src, -s': 'Publish all `.csproj` files located within directory',
     'dest, -d': 'Destination directory for deployment',
     'clean, -c': 'Clean before build',
@@ -74,7 +74,7 @@ export default {
     }
 
     options.properties.publishUrl = dest;
-    options.configuration = yargs.argv.config || options.configuration;
+    options.configuration = yargs.argv.build || yargs.argv.b || options.configuration;
 
     if ((yargs.argv.clean || yargs.argv.c) && options.targets.indexOf('Clean') === -1) {
       options.targets = ['Clean', ...options.targets];
