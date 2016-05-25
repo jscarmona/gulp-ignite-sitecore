@@ -39,15 +39,8 @@ const options = {
       },
     },
   },
-  'sitecore:transforms': {
-    dest: 'C:\\Websites\\Sitecore\\Website',
-  },
   'sitecore:deploy': {
     dest: 'C:\\Websites\\Sitecore\\Website',
-  },
-  'sitecore:package-website': {
-    src: 'C:\\sitecore_tmp\\Website',
-    dest: 'C:\\sitecore_tmp',
   },
 };
 
@@ -61,9 +54,9 @@ ignite.start(tasks, options);
 * [Restore NuGet Packages](#nugetRestore)
 * [Publish Projects](#publishProjects)
 * [Publish TDS](#publishTDS)
-* [Transforms](#transforms)
-* [Package Website](#packageWebsite)
 * [Deploy](#deploy)
+* Transforms (Coming Soon)
+* Package Website (Coming Soon)
 * Sync Unicorn (Coming Soon)
 
 
@@ -148,47 +141,6 @@ gulp sitecore:publish-tds
     - `OutputPath` - Path to output item files (**Default** `.\\bin\\Debug`)
 - `configuration` - Build configuration. (**Default:** `Debug`)
 - `src` - Publish all `.scproj `files located within directory. (**Default:** `./src`)
-- `deps` - Any gulp tasks that task would be dependent of. (**Default:** `[]`)
-
----
-
-### <a name="transforms"></a>transforms
-
-Apply transforms and publish to project.
-
-```
-gulp sitecore:transforms
-```
-
-##### arguments
-- `--src, -s` - Publish all `.transforms` files located within directory.
-- `--dest, -d` - Destination directory for deployment.
-
-##### options
-- `dest` - Destination directory for deployment. (**Required**)
-- `src` - Publish all `.csproj` files located within directory. (**Default:** `./src`)
-- `options` - MSbuild options. (**Default:** `{}`)
-- `deps` - Any gulp tasks that task would be dependent of. (**Default:** `[]`)
-
----
-
-### <a name="packageWebsite"></a>package website
-
-Zip up the website for deployment.
-
-```
-gulp sitecore:package-website
-```
-
-##### arguments
-- `--name, -n` - Name for zip file.
-- `--src, -s` - Directory to package.
-- `--dest, -d` - Destination directory for compiled zip.
-
-##### options
-- `src` - Directory to package up. (**Required**)
-- `dest` - Destination directory for compiled zip. (**Required**)
-- `name` - Name for zip file (**Default:** `sitecore_website`)
 - `deps` - Any gulp tasks that task would be dependent of. (**Default:** `[]`)
 
 ---
