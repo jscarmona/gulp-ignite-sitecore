@@ -91,10 +91,10 @@ gulp sitecore:nuget-restore
 ```
 
 ##### arguments
-- `--name, -n` - Solution name.
+- `--solution, -s` - Solution file path.
 
 ##### options
-- `name` - Solution name. (**Required**)
+- `solution` - Solution file path. (**Required**)
 - `deps` - Any gulp tasks that task would be dependent of. (**Default:** `[]`)
 
 ---
@@ -108,14 +108,14 @@ gulp sitecore:publish-projects
 ```
 
 ##### arguments
-- `--config, -c` - Build configuration.
+- `--build, -b` - Build configuration.
 - `--src, -s` - Publish all `.csproj` files located within directory.
 - `--dest, -d` - Destination directory for deployment.
 - `--clean, -c` - Perform a clean before a build.
 
 ##### options
+- `configuration` - Build configuration. (**Default:** `Debug`)
 - `dest` - Destination directory for deployment. (**Required**)
-- `config` - Build configuration. (**Default:** `Debug`)
 - `src` - Publish all `.csproj` files located within directory. (**Default:** `./src`)
 - `options` - MSbuild options. (**Default:** `{}`)
 - `deps` - Any gulp tasks that task would be dependent of. (**Default:** `[]`)
@@ -131,17 +131,19 @@ gulp sitecore:publish-tds
 ```
 
 ##### arguments
-- `--config, -c` - Build configuration.
+- `--build, -b` - Build configuration.
 - `--src, -s` - Publish all `.scproj `files located within directory.
 - `--dest, -d` - Destination directory for deployment.
 - `--url, -u` - Destination sitecore url for deployment.
 
 ##### options
-- `dest` - Destination directory for deployment. (**Required**)
-- `url` - Destination sitecore url for deployment. (**Required**)
-- `config` - Build configuration. (**Default:** `Debug`)
+- `options` - MSbuild options. (**Required**)
+  - `properties` (Overwrites for values set in VisualStudio)
+    - `SitecoreWebUrl` - Destination sitecore url for deployment
+    - `SitecoreDeployFolder` - Destination directory for deployment
+    - `OutputPath` - Path to output item files (**Default** `.\\bin\\Debug`)
+- `configuration` - Build configuration. (**Default:** `Debug`)
 - `src` - Publish all `.scproj `files located within directory. (**Default:** `./src`)
-- `options` - MSbuild options. (**Default:** `{}`)
 - `deps` - Any gulp tasks that task would be dependent of. (**Default:** `[]`)
 
 ---
