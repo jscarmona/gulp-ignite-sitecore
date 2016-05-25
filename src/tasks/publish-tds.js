@@ -1,4 +1,9 @@
+import gulp from 'gulp';
+import es from 'event-stream';
+import path from 'path';
+import msbuild from 'gulp-msbuild';
 import yargs from 'yargs';
+import { IGNITE_UTILS } from 'gulp-ignite/utils';
 
 export default {
   /**
@@ -19,8 +24,28 @@ export default {
    */
   config: {
     config: 'Debug',
-    src: './src',
-    options: {},
+    src: ['./src/**/*.scproj'],
+    options: {
+      targets: ['Build'],
+      configuration: 'Debug',
+      logCommand: false,
+      verbosity: 'minimal',
+      maxcpucount: 0,
+      toolsVersion: 12.0,
+      stdout: false,
+      stderr: true,
+      properties: {
+        DeployOnBuild: true,
+        DeployDefaultTarget: 'WebPublish',
+        WebPublishMethod: 'FileSystem',
+        OutputPath: '.\\bin\\Debug\\',
+        DeleteExistingFiles: false,
+        SeperateFilesAndItems: false,
+        DisableFileDeployment: true,
+        PackageExcludeCode: true,
+        _FindDependencies: false,
+      },
+    },
     deps: [],
   },
 
@@ -29,7 +54,7 @@ export default {
    * @type {Object}
    */
   help: {
-    'config, -c': 'Build Configuration',
+    'build, -b': 'Build Configuration',
     'dest, -d': 'Destination directory for deployment',
     'src, -s': 'Publish all `.scproj `files located within directory',
     'url, -u': 'Destination sitecore url for deployment',
@@ -42,13 +67,31 @@ export default {
    * @param {Function} error
    */
   fn(config, end, error) {
-    if (!config) {
-      error();
+    const src = yargs.argv.src || yargs.argv.s || config.src;
+    const dest = yargs.argv.dest || yargs.argv.d;
+    const url = yargs.argv.url || yargs.argv.u;
+    const options = config.options;
+
+    options.properties.SitecoreWebUrl = url || options.properties.SitecoreWebUrl;
+    options.properties.SitecoreDeployFolder = dest || options.properties.SitecoreDeployFolder;
+    options.configuration = yargs.argv.build || yargs.argv.b || options.configuration;
+
+    try {
+      gulp.src(src)
+        .pipe(es.through(build))
+        .on('end', end);
+    } catch (e) {
+      error(e);
     }
 
-    /* eslint no-unused-vars: 0 */
-    const sample = yargs.argv.sample || config.sample;
+    function build(file) {
+      IGNITE_UTILS.log(`${path.basename(file.path, path.extname(file.path))}`);
 
-    end();
+      this.pause();
+
+      gulp.src(file.path)
+        .pipe(msbuild(options))
+          .on('end', () => { this.resume(); });
+    }
   },
 };
