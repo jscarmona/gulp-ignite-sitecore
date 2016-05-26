@@ -1,7 +1,7 @@
 {
   "name": "gulp-ignite-sitecore",
   "description": "A build and deployment set of gulp tasks to ease through the development of Sitecore projects.",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register",
