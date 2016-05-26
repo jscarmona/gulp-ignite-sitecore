@@ -1,5 +1,9 @@
 # gulp-ignite-task
 
+[![Build Status](https://travis-ci.org/jscarmona/gulp-ignite-sitecore.svg?branch=master)](https://travis-ci.org/jscarmona/gulp-ignite-sitecore)
+[![npm](https://img.shields.io/npm/dt/gulp-ignite-sitecore.svg?maxAge=2592000)]()
+[![GitHub tag](https://img.shields.io/github/release/jscarmona/gulp-ignite-sitecore.svg?maxAge=2592000)]()
+
 Inspired by [Sitecore Habitat](https://github.com/Sitecore/Habitat)
 
 ## install
