@@ -4,7 +4,7 @@ import nugetRestore from './tasks/nuget-restore';
 import publishProjects from './tasks/publish-projects';
 import publishTDS from './tasks/publish-tds';
 
-export default {
+export {
   copySitecoreLibraries,
   deploy,
   nugetRestore,
