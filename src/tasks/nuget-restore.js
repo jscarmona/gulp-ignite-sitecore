@@ -1,4 +1,5 @@
 import gulp from 'gulp';
+import es from 'event-stream';
 import nugetRestore from 'gulp-nuget-restore';
 
 export default {
@@ -45,6 +46,7 @@ export default {
 
     gulp.src(config.solution)
       .pipe(nugetRestore())
-      .on('end', end);
+      .pipe(es.through(() => {}))
+        .on('end', end);
   },
 };
