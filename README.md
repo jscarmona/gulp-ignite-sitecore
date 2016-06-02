@@ -1,4 +1,4 @@
-# gulp-ignite-task
+# gulp-ignite-sitecore
 
 [![Build Status](https://travis-ci.org/jscarmona/gulp-ignite-sitecore.svg?branch=master)](https://travis-ci.org/jscarmona/gulp-ignite-sitecore)
 [![npm](https://img.shields.io/npm/dt/gulp-ignite-sitecore.svg?maxAge=2592000)]()
