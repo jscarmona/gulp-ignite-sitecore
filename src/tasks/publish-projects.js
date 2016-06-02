@@ -68,7 +68,7 @@ export default {
     const options = config.options;
 
     if (!dest) {
-      error({ message: 'Error: There is no `dest` provided.' });
+      error('There is no `dest` provided.');
 
       return;
     }

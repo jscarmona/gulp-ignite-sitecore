@@ -48,13 +48,13 @@ export default {
     const dest = yargs.argv.dest || yargs.argv.d || config.dest;
 
     if (!src) {
-      error({ message: 'Error: There is no `src` provided.' });
+      error('There is no `src` provided.');
 
       return;
     }
 
     if (!dest) {
-      error({ message: 'Error: There is no `dest` provided.' });
+      error('There is no `dest` provided.');
 
       return;
     }

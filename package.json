@@ -29,7 +29,7 @@
   "dependencies": {
     "event-stream": "3.3.2",
     "gulp": "3.9.1",
-    "gulp-ignite": "1.1.2",
+    "gulp-ignite": "1.3.0",
     "gulp-msbuild": "0.3.2",
     "gulp-newer": "1.1.0",
     "gulp-nuget-restore": "0.4.0",

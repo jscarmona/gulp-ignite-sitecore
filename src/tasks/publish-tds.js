@@ -81,7 +81,7 @@ export default {
         .pipe(es.through(build))
         .on('end', end);
     } catch (e) {
-      error(e);
+      error(e.message);
     }
 
     function build(file) {
