@@ -34,6 +34,7 @@ export default {
       toolsVersion: 12.0,
       stdout: false,
       stderr: true,
+      errorOnFail: true,
       properties: {
         DeployOnBuild: true,
         DeployDefaultTarget: 'WebPublish',
@@ -91,6 +92,7 @@ export default {
 
       gulp.src(file.path)
         .pipe(msbuild(options))
+          .on('error', error)
           .on('end', () => { this.resume(); });
     }
   },

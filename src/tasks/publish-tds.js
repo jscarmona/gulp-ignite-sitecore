@@ -34,6 +34,7 @@ export default {
       toolsVersion: 12.0,
       stdout: false,
       stderr: true,
+      errorOnFail: true,
       properties: {
         DeployOnBuild: true,
         DeployDefaultTarget: 'WebPublish',
@@ -67,22 +68,24 @@ export default {
    * @param {Function} error
    */
   fn(config, end, error) {
-    const src = yargs.argv.src || yargs.argv.s || config.src;
-    const dest = yargs.argv.dest || yargs.argv.d;
-    const url = yargs.argv.url || yargs.argv.u;
     const options = config.options;
+    const src = yargs.argv.src || yargs.argv.s || config.src;
+    const dest = yargs.argv.dest || yargs.argv.d || options.properties.SitecoreDeployFolder;
+    const url = yargs.argv.url || yargs.argv.u || options.properties.SitecoreWebUrl;
 
-    options.properties.SitecoreWebUrl = url || options.properties.SitecoreWebUrl;
-    options.properties.SitecoreDeployFolder = dest || options.properties.SitecoreDeployFolder;
+    if (url) {
+      options.properties.SitecoreWebUrl = url;
+    }
+
+    if (dest) {
+      options.properties.SitecoreDeployFolder = dest;
+    }
+
     options.configuration = yargs.argv.build || yargs.argv.b || options.configuration;
 
-    try {
-      gulp.src(src)
-        .pipe(es.through(build))
-        .on('end', end);
-    } catch (e) {
-      error(e.message);
-    }
+    gulp.src(src)
+      .pipe(es.through(build))
+      .on('end', end);
 
     function build(file) {
       IGNITE_UTILS.log(`${path.basename(file.path, path.extname(file.path))}`);
@@ -91,6 +94,7 @@ export default {
 
       gulp.src(file.path)
         .pipe(msbuild(options))
+          .on('error', error)
           .on('end', () => { this.resume(); });
     }
   },
